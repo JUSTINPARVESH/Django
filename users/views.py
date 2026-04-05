@@ -78,9 +78,9 @@ def custom_login(request):
             login(request, user)
 
             if user.role == "ADMIN":
-                return redirect('/admin/')
+                return redirect('/api/admin-dashboard/')
             elif user.role == "TEACHER":
-                return redirect('/api/teacher-only/')
+                return redirect('/api/teacher-dashboard/')
             else:
                 return redirect('/api/student-dashboard/')
 
@@ -91,3 +91,11 @@ def custom_login(request):
 # 🔥 STUDENT DASHBOARD
 def student_dashboard(request):
     return render(request, "student_dashboard.html")
+
+# 🔥 TEACHER DASHBOARD
+def teacher_dashboard(request):
+    return render(request, "teacher_dashboard.html")
+
+# 🔥 ADMIN DASHBOARD
+def admin_dashboard(request):
+    return render(request, "admin_dashboard.html")

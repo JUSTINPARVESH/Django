@@ -7,7 +7,9 @@ from .views import (
     TeacherOnlyView,
     custom_login,
     register_page,
-    student_dashboard
+    student_dashboard,
+    teacher_dashboard,
+    admin_dashboard
 )
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
@@ -24,6 +26,8 @@ urlpatterns = [
     path('custom-login/', custom_login),
     path('register-page/', register_page),
     path('student-dashboard/', student_dashboard),
+    path('teacher-dashboard/', teacher_dashboard),
+    path('admin-dashboard/', admin_dashboard),
 
     # 🔐 USER APIs
     path('profile/', ProfileView.as_view()),
