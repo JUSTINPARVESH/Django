@@ -142,7 +142,7 @@ EMAIL_USE_TLS = True
 
 # Actual Gmail account credentials
 EMAIL_HOST_USER = 'justinparvesh20@gmail.com'
-EMAIL_HOST_PASSWORD = 'uqgm sqyx jsib vgol'
+EMAIL_HOST_PASSWORD = 'hzuc qxak lbfq bjhk'
 
 
 # 🎨 JAZZMIN SETTINGS
