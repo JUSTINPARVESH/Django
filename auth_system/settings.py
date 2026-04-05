@@ -1,14 +1,20 @@
 from pathlib import Path
 from datetime import timedelta
+import os
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
 # 🔐 SECURITY
-SECRET_KEY = 'django-insecure-ikdodwes9jfrv=igr*-zy%^b!z*^92ef2vk6-yfarebisvc=1!'
-DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ikdodwes9jfrv=igr*-zy%^b!z*^92ef2vk6-yfarebisvc=1!')
+DEBUG = 'RENDER' not in os.environ
 ALLOWED_HOSTS = ['*']
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # 📦 INSTALLED APPS
@@ -30,6 +36,7 @@ INSTALLED_APPS = [
 # ⚙️ MIDDLEWARE
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,6 +77,9 @@ DATABASES = {
     }
 }
 
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+
 
 # 🔐 PASSWORD VALIDATION
 AUTH_PASSWORD_VALIDATORS = [
@@ -97,6 +107,9 @@ USE_TZ = True
 
 # 📁 STATIC
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+if not DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # 👤 CUSTOM USER
